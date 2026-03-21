@@ -1,0 +1,17 @@
+import 'package:fruit_app/Features/OnBoarding/Presentation/Views/onboarding_view.dart';
+import 'package:fruit_app/Features/Splash/Presentation/Views/splash_view.dart';
+import 'package:go_router/go_router.dart';
+
+final GoRouter appRouter = GoRouter(
+  initialLocation: '/${SplashView.routeName}',
+  routes: [
+    GoRoute(
+      path: '/${SplashView.routeName}',
+      builder: (context, state) => const SplashView(),
+    ),
+    GoRoute(
+      path: '/${OnboardingView.routeName}',
+      builder: (context, state) => const OnboardingView(),
+    ),
+  ],
+);
