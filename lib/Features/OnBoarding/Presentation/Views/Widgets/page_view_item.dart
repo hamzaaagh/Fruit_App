@@ -1,0 +1,115 @@
+import 'package:dots_indicator/dots_indicator.dart';
+import 'package:flutter/material.dart';
+import 'package:fruit_app/Core/Widgets/custom_button.dart';
+import 'package:fruit_app/Core/utils/app_assets.dart';
+import 'package:fruit_app/Core/utils/app_colors.dart';
+import 'package:svg_flutter/svg.dart';
+
+class PageViewItem extends StatelessWidget {
+  const PageViewItem({
+    super.key,
+    required this.vectorcolor,
+    required this.midleimage,
+    required this.title,
+    required this.description,
+    required this.isfirstpage,
+    // أضفنا هذا المتغير لتحديث النقاط
+  });
+
+  final Color vectorcolor;
+  final String midleimage;
+  final Widget title;
+  final String description;
+  final bool isfirstpage;
+  // رقم الصفحة الحالية (0 أو 1)
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        // 1. الجزء العلوي (الـ Vector والصورة)
+        SizedBox(
+          height: MediaQuery.sizeOf(context).height * 0.5,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: SvgPicture.asset(
+                  Assets.assetsImagesVector,
+                  fit: BoxFit.fill,
+                  colorFilter: ColorFilter.mode(vectorcolor, BlendMode.srcIn),
+                ),
+              ),
+              // زر تخط
+              Positioned(
+                top: 40,
+                right: 20,
+                child: Visibility(
+                  visible: isfirstpage,
+                  child: const Text(
+                    "تخط",
+                    style: TextStyle(color: Color(0xff949D9E), fontSize: 16),
+                  ),
+                ),
+              ),
+              // الصورة في المنتصف تماماً
+              Align(
+                alignment: AlignmentGeometry.bottomCenter,
+                child: SvgPicture.asset(midleimage, height: 200),
+              ),
+            ],
+          ),
+        ),
+
+        // 2. الـ Column الأخير الذي يحتوي على النصوص، النقاط، والزر
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween, // لتوزيع العناصر عمودياً
+              children: [
+                // النصوص (العنوان والوصف)
+                Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    title,
+                    const SizedBox(height: 16),
+                    Text(
+                      description,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        color: Color(0xff4E5556),
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
+                ),
+
+                // النقاط والزر في أسفل الـ Column
+                Column(
+                  children: [
+                    DotsIndicator(
+                      dotsCount: 2,
+                      // position: currentPage,
+                      decorator: DotsDecorator(
+                        color: AppColors.secondarycolor, // Inactive color
+                        activeColor: AppColors.primarycolor,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 40),
+                      child: CustomButton(
+                        title: isfirstpage ? "التالي" : "ابدأ الآن",
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
