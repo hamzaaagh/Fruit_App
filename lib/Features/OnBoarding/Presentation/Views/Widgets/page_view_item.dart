@@ -12,22 +12,21 @@ class PageViewItem extends StatelessWidget {
     required this.midleimage,
     required this.title,
     required this.description,
-    required this.isfirstpage,
-    // أضفنا هذا المتغير لتحديث النقاط
+    required this.currentpage,
   });
 
   final Color vectorcolor;
   final String midleimage;
   final Widget title;
   final String description;
-  final bool isfirstpage;
-  // رقم الصفحة الحالية (0 أو 1)
+
+  final int currentpage;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // 1. الجزء العلوي (الـ Vector والصورة)
+        // الصورة الخلفية
         SizedBox(
           height: MediaQuery.sizeOf(context).height * 0.5,
           child: Stack(
@@ -40,14 +39,17 @@ class PageViewItem extends StatelessWidget {
                 ),
               ),
               // زر تخط
-              Positioned(
-                top: 40,
-                right: 20,
-                child: Visibility(
-                  visible: isfirstpage,
-                  child: const Text(
-                    "تخط",
-                    style: TextStyle(color: Color(0xff949D9E), fontSize: 16),
+              Visibility(
+                visible: currentpage == 0,
+                child: Positioned(
+                  top: 40,
+                  right: 20,
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: const Text(
+                      "تخط",
+                      style: TextStyle(color: Color(0xff949D9E), fontSize: 16),
+                    ),
                   ),
                 ),
               ),
@@ -65,8 +67,7 @@ class PageViewItem extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
-              mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween, // لتوزيع العناصر عمودياً
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // النصوص (العنوان والوصف)
                 Column(
@@ -92,15 +93,21 @@ class PageViewItem extends StatelessWidget {
                       dotsCount: 2,
                       // position: currentPage,
                       decorator: DotsDecorator(
-                        color: AppColors.secondarycolor, // Inactive color
+                        color: currentpage == 0
+                            ? AppColors.secondarycolor
+                            : AppColors.primarycolor, // Inactive color
                         activeColor: AppColors.primarycolor,
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 40),
-                      child: CustomButton(
-                        title: isfirstpage ? "التالي" : "ابدأ الآن",
+                    Visibility(
+                      visible: currentpage == 1,
+                      maintainSize: true,
+                      maintainAnimation: true,
+                      maintainState: true,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 40),
+                        child: CustomButton(title: "ابدأ الآن"),
                       ),
                     ),
                   ],
