@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_app/Core/Services/shared_prefrs_singelton.dart';
 import 'package:fruit_app/Core/utils/app_router.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPrefrsSingelton.init();
   runApp(const FruitHUP());
 }
 

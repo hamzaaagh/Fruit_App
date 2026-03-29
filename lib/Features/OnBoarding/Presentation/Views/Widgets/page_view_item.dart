@@ -1,11 +1,14 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:fruit_app/Core/Services/shared_prefrs_singelton.dart';
 import 'package:fruit_app/Core/Widgets/custom_button.dart';
 import 'package:fruit_app/Core/utils/app_assets.dart';
 import 'package:fruit_app/Core/utils/app_colors.dart';
 import 'package:fruit_app/Core/utils/app_styles.dart';
 import 'package:fruit_app/Features/Auth/Presentation/Views/login_view.dart';
+import 'package:fruit_app/consts.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svg_flutter/svg.dart';
 
 class PageViewItem extends StatelessWidget {
@@ -51,9 +54,21 @@ class PageViewItem extends StatelessWidget {
                     onTap: () {
                       context.go("/${LoginView.routeName}");
                     },
-                    child: const Text(
-                      "تخط",
-                      style: TextStyle(color: Color(0xff949D9E), fontSize: 16),
+                    child: GestureDetector(
+                      onTap: () {
+                        SharedPrefrsSingelton.saveData(
+                          key: kIsSeenOnBoarding,
+                          value: true,
+                        );
+                        context.go("/${LoginView.routeName}");
+                      },
+                      child: const Text(
+                        "تخط",
+                        style: TextStyle(
+                          color: Color(0xff949D9E),
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -116,7 +131,15 @@ class PageViewItem extends StatelessWidget {
                       maintainState: true,
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 40),
-                        child: CustomButton(title: "ابدأ الآن"),
+                        child: CustomButton(
+                          onPressed: () {
+                            SharedPrefrsSingelton.saveData(
+                              key: kIsSeenOnBoarding,
+                              value: true,
+                            );
+                            context.go("/${LoginView.routeName}");
+                          },
+                          title: "ابدأ الآن"),
                       ),
                     ),
                   ],
