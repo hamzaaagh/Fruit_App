@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruit_app/Core/utils/app_styles.dart';
 
 class CustomRichText extends StatelessWidget {
   const CustomRichText({super.key});
@@ -12,7 +13,7 @@ class CustomRichText extends StatelessWidget {
         children: [
           TextSpan(
             text: 'مرحباً بك في ',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+            style: AppStyles.bold24.copyWith(fontFamily: 'Cairo'),
           ),
           TextSpan(
             text: 'Fruit',

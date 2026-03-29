@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_app/Core/utils/app_assets.dart';
 import 'package:fruit_app/Core/utils/app_colors.dart';
+import 'package:fruit_app/Core/utils/app_styles.dart';
 import 'package:fruit_app/Features/OnBoarding/Presentation/Views/Widgets/custom_rich_text.dart';
 import 'package:fruit_app/Features/OnBoarding/Presentation/Views/Widgets/page_view_item.dart';
 
@@ -17,10 +18,8 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
   @override
   void initState() {
     super.initState();
-    
-     _pageController = PageController();
-    
-    
+
+    _pageController = PageController();
   }
 
   @override
@@ -34,10 +33,10 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
     return PageView(
       controller: _pageController,
       onPageChanged: (int index) {
-            setState(() {
-              currentPage = index; 
-            });
-          },
+        setState(() {
+          currentPage = index;
+        });
+      },
       children: [
         PageViewItem(
           vectorcolor: AppColors.lightorange,
@@ -51,10 +50,7 @@ class _OnboardingViewBodyState extends State<OnboardingViewBody> {
         PageViewItem(
           vectorcolor: AppColors.lightblue,
           midleimage: Assets.assetsImagesPineapple,
-          title: Text(
-            "ابحث وتسوق",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
-          ),
+          title: Text("ابحث وتسوق", style: AppStyles.bold24),
           description:
               "نقدم لك أفضل الفواكه المختارة بعناية. اطلع على التفاصيل والصور والتقييمات لتتأكد من اختيار الفاكهة المثالية",
 

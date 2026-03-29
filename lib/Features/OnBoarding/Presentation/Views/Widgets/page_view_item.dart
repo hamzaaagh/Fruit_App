@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:fruit_app/Core/Widgets/custom_button.dart';
 import 'package:fruit_app/Core/utils/app_assets.dart';
 import 'package:fruit_app/Core/utils/app_colors.dart';
+import 'package:fruit_app/Core/utils/app_styles.dart';
+import 'package:fruit_app/Features/Auth/Presentation/Views/login_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:svg_flutter/svg.dart';
 
 class PageViewItem extends StatelessWidget {
@@ -45,7 +48,9 @@ class PageViewItem extends StatelessWidget {
                   top: 40,
                   right: 20,
                   child: GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      context.go("/${LoginView.routeName}");
+                    },
                     child: const Text(
                       "تخط",
                       style: TextStyle(color: Color(0xff949D9E), fontSize: 16),
@@ -75,14 +80,18 @@ class PageViewItem extends StatelessWidget {
                     const SizedBox(height: 20),
                     title,
                     const SizedBox(height: 16),
-                    Text(
-                      description,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Color(0xff4E5556),
-                        height: 1.5,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 37),
+                      child: Text(
+                        description,
+                        textDirection: TextDirection.rtl,
+                        textAlign: TextAlign.center,
+                        style: AppStyles.semiBold16.copyWith(
+                          color: Color(0xff4E5556),
+                        ),
                       ),
                     ),
+                    // const SizedBox(height: 30),
                   ],
                 ),
 

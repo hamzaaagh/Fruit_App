@@ -11,6 +11,7 @@ class FruitHUP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      theme: ThemeData(fontFamily: 'Cairo',),
       routerConfig: appRouter,
       title: "FruitHUP",
       debugShowCheckedModeBanner: false,
