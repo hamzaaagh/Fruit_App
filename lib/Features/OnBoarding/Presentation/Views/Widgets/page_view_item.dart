@@ -8,7 +8,6 @@ import 'package:fruit_app/Core/utils/app_styles.dart';
 import 'package:fruit_app/Features/Auth/Presentation/Views/login_view.dart';
 import 'package:fruit_app/consts.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:svg_flutter/svg.dart';
 
 class PageViewItem extends StatelessWidget {
@@ -139,7 +138,8 @@ class PageViewItem extends StatelessWidget {
                             );
                             context.go("/${LoginView.routeName}");
                           },
-                          title: "ابدأ الآن"),
+                          title: "ابدأ الآن",
+                        ),
                       ),
                     ),
                   ],
