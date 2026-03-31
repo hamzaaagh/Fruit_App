@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fruit_app/Core/Services/shared_prefrs_singelton.dart';
 import 'package:fruit_app/Core/utils/app_router.dart';
 
@@ -14,7 +15,14 @@ class FruitHUP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      theme: ThemeData(fontFamily: 'Cairo',),
+      locale: const Locale('ar'),
+      supportedLocales: const [Locale('ar')],
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      theme: ThemeData(fontFamily: 'Cairo'),
       routerConfig: appRouter,
       title: "FruitHUP",
       debugShowCheckedModeBanner: false,
