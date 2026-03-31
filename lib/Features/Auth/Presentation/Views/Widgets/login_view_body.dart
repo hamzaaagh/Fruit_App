@@ -5,8 +5,9 @@ import 'package:fruit_app/Core/utils/app_assets.dart';
 import 'package:fruit_app/Core/utils/app_colors.dart';
 import 'package:fruit_app/Core/utils/app_styles.dart';
 import 'package:fruit_app/Features/Auth/Presentation/Views/Widgets/custom_divider.dart';
-import 'package:fruit_app/Features/Auth/Presentation/Views/Widgets/custom_rich_text.dart';
+import 'package:fruit_app/Features/Auth/Presentation/Views/Widgets/custom_rich_text_auth.dart';
 import 'package:fruit_app/Features/Auth/Presentation/Views/Widgets/social_auth_button.dart';
+import 'package:fruit_app/Features/Auth/Presentation/Views/register_view.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginViewBody extends StatelessWidget {
@@ -43,7 +44,7 @@ class LoginViewBody extends StatelessWidget {
             CustomRichTextAuth(
               text1: "لا تمتلك حساب؟ ",
               text2: "قم بإنشاء حساب",
-              onTap: () => context.pop()
+              onTap: () => context.push("/${RegisterView.routeName}"),
             ),
             const SizedBox(height: 32),
             CustomDivider(),

@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:fruit_app/Core/utils/app_styles.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key, required this.title, this.suffixIcon});
+  const CustomAppBar({
+    super.key,
+    required this.title,
+    this.suffixIcon,
+    this.showBackButton = true,
+  });
   final String title;
   final Icon? suffixIcon;
+  final bool showBackButton;
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
   @override
@@ -12,13 +18,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(title, style: AppStyles.bold20),
       centerTitle: true,
-      leading: IconButton(
-        onPressed: () {},
-        icon: Padding(
-          padding: const EdgeInsetsDirectional.only(start: 16),
-          child: Icon(Icons.arrow_back_ios, size: 24),
-        ),
-      ),
+      leading: showBackButton
+          ? IconButton(
+              onPressed: () {},
+              icon: Padding(
+                padding: const EdgeInsetsDirectional.only(start: 16),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Icon(Icons.arrow_back_ios, size: 24),
+                ),
+              ),
+            )
+          : null,
       actions: [
         TextButton(
           onPressed: () {

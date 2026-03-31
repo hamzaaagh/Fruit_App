@@ -1,47 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:fruit_app/Core/utils/app_styles.dart';
+import 'package:fruit_app/Core/utils/app_styles.dart'; // تأكد من وجود المسار الصحيح
 
-class CustomTextFormField extends StatelessWidget {
+class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
     super.key,
     required this.hintText,
     this.obscureText = false,
   });
+
   final String hintText;
   final bool obscureText;
+
+  @override
+  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
+}
+
+class _CustomTextFormFieldState extends State<CustomTextFormField> {
+  late bool _isHidden;
+
+  @override
+  void initState() {
+    super.initState();
+    // نضبط الحالة الابتدائية بناءً على ما إذا كان الحقل أصلاً كلمة مرور
+    _isHidden = widget.obscureText;
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscuringCharacter: "*",
-      style: AppStyles.semiBold16.copyWith(color: Color(0xFF0C0D0D)),
-      obscureText: obscureText,
+      obscuringCharacter: '●',
+      style: AppStyles.semiBold16.copyWith(
+        color: const Color(0xFF0C0D0D),
+        fontSize: _isHidden ? 10 : 16,
+        letterSpacing: _isHidden ? 2.0 : 0.0,
+      ),
+      obscureText: _isHidden,
       decoration: InputDecoration(
-        suffixIcon: obscureText
+        suffixIcon: widget.obscureText
             ? Padding(
-                padding: const EdgeInsetsDirectional.only(end: 31),
+                padding: const EdgeInsetsDirectional.only(end: 16),
                 child: IconButton(
                   onPressed: () {
-                    // Logic هنا
+                    setState(() {
+                      _isHidden = !_isHidden;
+                    });
                   },
-                  icon: const Icon(
-                    Icons.visibility_off,
+                  icon: Icon(
+                    _isHidden ? Icons.visibility_off : Icons.visibility,
                     size: 20,
-                    color: Color(0xFFC9CECF),
+                    color: const Color(0xFFC9CECF),
                   ),
                 ),
               )
             : null,
-        hintText: hintText,
+        hintText: widget.hintText,
         hintStyle: AppStyles.bold14.copyWith(color: Colors.grey[500]),
         filled: true,
-        fillColor: Color(0xffF9FAFA),
-        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-
+        fillColor: const Color(0xffF9FAFA),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 12,
+        ),
         enabledBorder: defaultBorder,
-
         focusedBorder: defaultBorder,
       ),
-      keyboardType: TextInputType.emailAddress, // لفتح كيبورد الإيميل مباشرة
+      keyboardType: widget.obscureText
+          ? TextInputType.visiblePassword
+          : TextInputType.emailAddress,
     );
   }
 }
