@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruit_app/Core/Services/shared_prefrs_singelton.dart';
 import 'package:fruit_app/Core/utils/app_assets.dart';
-import 'package:fruit_app/Features/Auth/Presentation/Views/login_view.dart';
 import 'package:fruit_app/Features/OnBoarding/Presentation/Views/onboarding_view.dart';
 import 'package:fruit_app/consts.dart';
 import 'package:go_router/go_router.dart';
@@ -30,7 +29,7 @@ class _SplashViewBodyState extends State<SplashViewBody> {
     if (!mounted) return;
 
     if (hasSeenOnBoarding) {
-      context.go('/${LoginView.routeName}');
+      context.go('/${OnboardingView.routeName}');
     } else {
       context.go('/${OnboardingView.routeName}');
     }

@@ -22,7 +22,10 @@ class FruitHUP extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      theme: ThemeData(fontFamily: 'Cairo'),
+      theme: ThemeData(
+        fontFamily: 'Cairo',
+        scaffoldBackgroundColor: Colors.white,
+      ),
       routerConfig: appRouter,
       title: "FruitHUP",
       debugShowCheckedModeBanner: false,
