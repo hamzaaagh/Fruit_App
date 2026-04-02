@@ -1,10 +1,15 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:fruit_app/Core/Services/shared_prefrs_singelton.dart';
 import 'package:fruit_app/Core/utils/app_router.dart';
+import 'package:fruit_app/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await SharedPrefrsSingelton.init();
   runApp(const FruitHUP());
 }
