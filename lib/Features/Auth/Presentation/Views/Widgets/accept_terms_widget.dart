@@ -4,16 +4,19 @@ import 'package:fruit_app/Features/Auth/Presentation/Views/Widgets/custom_rich_t
 
 class AcceptTermsWidget extends StatelessWidget {
   const AcceptTermsWidget({
-    super.key,
+    super.key, required this.onChanged,
   });
-
+  final ValueChanged<bool> onChanged;
+  
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomCheckbox(),
+        CustomCheckbox(onChanged: (value) {
+          onChanged(value);
+        },),
         const SizedBox(width: 20),
         Expanded(
           child: CustomRichTextAuth(

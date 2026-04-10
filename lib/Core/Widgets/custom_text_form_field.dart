@@ -5,11 +5,12 @@ class CustomTextFormField extends StatefulWidget {
   const CustomTextFormField({
     super.key,
     required this.hintText,
-    this.obscureText = false,
+    this.obscureText = false, this.onSaved,
   });
 
   final String hintText;
   final bool obscureText;
+  final void Function(String?)? onSaved;
 
   @override
   State<CustomTextFormField> createState() => _CustomTextFormFieldState();
@@ -28,6 +29,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'هذا الحقل مطلوب';
+        }
+        return null;
+      },
+      onSaved: widget.onSaved,
       obscuringCharacter: '●',
       style: AppStyles.semiBold16.copyWith(
         color: const Color(0xFF0C0D0D),

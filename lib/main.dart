@@ -1,15 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fruit_app/Core/Services/custom_bloc_observer.dart';
+import 'package:fruit_app/Core/Services/service_locator.dart';
 import 'package:fruit_app/Core/Services/shared_prefrs_singelton.dart';
 import 'package:fruit_app/Core/utils/app_router.dart';
 import 'package:fruit_app/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  setupServiceLoacator();
+  Bloc.observer = CustomBlocObserver();
   await SharedPrefrsSingelton.init();
   runApp(const FruitHUP());
 }
