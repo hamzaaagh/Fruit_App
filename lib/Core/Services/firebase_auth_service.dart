@@ -15,7 +15,7 @@ class FirebaseAuthService {
           .createUserWithEmailAndPassword(email: email, password: password);
       return credential.user!;
     } on FirebaseAuthException catch (e) {
-      log("FirebaseAuthException: e.code : ${e.code} - ${e.message}");
+      log("FirebaseAuthExceptionCreateEmailAndPassword: e.code : ${e.code} - ${e.message}");
       if (e.code == 'network-request-failed') {
         throw CustomException(
           'لا يوجد اتصال بالإنترنت. يرجى التحقق من اتصالك والمحاولة مرة أخرى.',
@@ -30,6 +30,36 @@ class FirebaseAuthService {
         throw CustomException('كلمة السر ضعيفة جدا ');
       } else if (e.code == 'email-already-in-use') {
         throw CustomException('البريد الإلكتروني مستخدم بالفعل');
+      }
+      throw CustomException('حدث خطأ ما . يرجى إعادة المحاولة لاحقًا');
+    } catch (e) {
+      throw CustomException('حدث خطأ ما . يرجى إعادة المحاولة ');
+    }
+  }
+  Future<User> signInWithEmailAndPass({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      return credential.user!;
+    } on FirebaseAuthException catch (e) {
+      log("FirebaseAuthExceptionSignInEmailAndPassword: e.code : ${e.code} - ${e.message}");
+      if (e.code == 'network-request-failed') {
+        throw CustomException(
+          'لا يوجد اتصال بالإنترنت. يرجى التحقق من اتصالك والمحاولة مرة أخرى.',
+        );
+      }
+      if (e.code == 'invalid-email') {
+        throw CustomException('البريد الإلكتروني أو كلمة المرور غير صحيحة');
+      } else if (e.code == 'user-disabled') {
+        throw CustomException('الحساب معطل');
+      }
+      if (e.code == 'user-not-found') {
+        throw CustomException('المستخدم غير موجود');
+      } else if (e.code == 'wrong-password') {
+        throw CustomException('البريد الإلكتروني أو كلمة المرور غير صحيحة');
       }
       throw CustomException('حدث خطأ ما . يرجى إعادة المحاولة لاحقًا');
     } catch (e) {
